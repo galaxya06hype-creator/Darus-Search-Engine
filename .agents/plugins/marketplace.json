@@ -1,0 +1,32 @@
+{
+  "name": "rival-search-mcp-marketplace",
+  "interface": {
+    "displayName": "RivalSearch MCP"
+  },
+  "plugins": [
+    {
+      "name": "rival-search-mcp",
+      "source": {
+        "source": "local",
+        "path": "./plugins/rival-search-mcp"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "rival-search-mcp-skills",
+      "source": {
+        "source": "local",
+        "path": "./plugins/rival-search-mcp-skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+# Canonical label taxonomy for RivalSearchMCP.
+#
+# Source of truth: this file. To sync labels to GitHub from this file, run
+# the EndBug/label-sync action — see https://github.com/EndBug/label-sync.
+#
+# Conventions:
+#   Type      (pick 1)  — 🐛 Bug · ✨ Feature Request · ❓ Question · 💬 Feedback
+#   Priority  (pick 1)  — 🔥 High · 🟡 Medium · 🟢 Low · 🔮 Roadmap
+#   tool:*    (multi)   — which MCP tool the work touches
+#   status:*  (pick 1)  — only if actively in motion (in-progress / blocked)
+
+# ───── Type ─────
+# Descriptions intentionally left empty — emoji + name is self-explanatory and
+# clearing them removes visual noise from the issue list / a11y view.
+- name: "🐛 Bug"
+  color: "d73a4a"
+  description: ""
+- name: "✨ Feature Request"
+  color: "1d76db"
+  description: ""
+- name: "❓ Question"
+  color: "cc317c"
+  description: ""
+- name: "💬 Feedback"
+  color: "f97316"
+  description: ""
+
+# ───── Priority ─────
+- name: "🔥 High"
+  color: "b60205"
+  description: ""
+- name: "🟡 Medium"
+  color: "fbca04"
+  description: ""
+- name: "🟢 Low"
+  color: "2da44e"
+  description: ""
+- name: "🔮 Roadmap"
+  color: "8957e5"
+  description: ""
+
+# ───── Tool / area (one per MCP tool) ─────
+- name: "tool:web_search"
+  color: "1d76db"
+  description: "Affects web_search MCP tool"
+- name: "tool:social_search"
+  color: "1d76db"
+  description: "Affects social_search MCP tool"
+- name: "tool:scientific_research"
+  color: "1d76db"
+  description: "Affects scientific_research MCP tool"
+- name: "tool:news_aggregation"
+  color: "1d76db"
+  description: "Affects news_aggregation MCP tool"
+- name: "tool:github_search"
+  color: "1d76db"
+  description: "Affects github_search MCP tool"
+- name: "tool:content_operations"
+  color: "1d76db"
+  description: "Affects content_operations MCP tool"
+- name: "tool:research_topic"
+  color: "1d76db"
+  description: "Affects research_topic MCP tool"
+- name: "tool:research_memory"
+  color: "1d76db"
+  description: "Affects research_memory MCP tool"
+- name: "tool:map_website"
+  color: "1d76db"
+  description: "Affects map_website MCP tool"
+- name: "tool:document_analysis"
+  color: "1d76db"
+  description: "Affects document_analysis MCP tool"
+
+# ───── Status (apply only when actively moving) ─────
+- name: "status:in-progress"
+  color: "0e8a16"
+  description: ""
+- name: "status:blocked"
+  color: "d4c5f9"
+  description: ""
+
+# ───── Community / discoverability (GitHub defaults, kept) ─────
+- name: "good first issue"
+  color: "7057ff"
+  description: "Good for newcomers"
+- name: "help wanted"
+  color: "008672"
+  description: "Extra attention is needed"
+- name: "duplicate"
+  color: "cfd3d7"
+  description: "This issue or pull request already exists"
+- name: "wontfix"
+  color: "ffffff"
+  description: "This will not be worked on"
+- name: "invalid"
+  color: "e4e669"
+  description: "This doesn't seem right"

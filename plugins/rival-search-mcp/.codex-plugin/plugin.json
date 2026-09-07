@@ -1,0 +1,43 @@
+{
+  "name": "rival-search-mcp",
+  "version": "1.0.0",
+  "description": "9 research tools: 5-engine web search, 9 social platforms, 5 news sources, 5 academic databases, GitHub, website mapping, document analysis, and research topic synthesis. No API keys required. Deterministic outputs for agent chaining.",
+  "author": {
+    "name": "Damion Rashford",
+    "url": "https://github.com/damionrashford"
+  },
+  "homepage": "https://github.com/damionrashford/RivalSearchMCP",
+  "repository": "https://github.com/damionrashford/RivalSearchMCP",
+  "license": "MIT",
+  "keywords": [
+    "search",
+    "research",
+    "web",
+    "social",
+    "academic",
+    "mcp",
+    "no-auth",
+    "news",
+    "github",
+    "arxiv",
+    "reddit"
+  ],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "RivalSearch MCP",
+    "shortDescription": "9 research tools - no API keys",
+    "longDescription": "Multi-engine web research across 5 search engines, 9 social platforms, 5 news sources, 5 academic databases, GitHub, website mapping, document analysis, and research topic synthesis. No API keys required.",
+    "developerName": "Damion Rashford",
+    "category": "Productivity",
+    "capabilities": ["Read"],
+    "websiteURL": "https://github.com/damionrashford/RivalSearchMCP",
+    "privacyPolicyURL": "https://github.com/damionrashford/RivalSearchMCP",
+    "termsOfServiceURL": "https://github.com/damionrashford/RivalSearchMCP/blob/main/LICENSE",
+    "defaultPrompt": [
+      "Search the web for current information.",
+      "Research a topic and summarize sources.",
+      "Find scientific papers about a subject."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

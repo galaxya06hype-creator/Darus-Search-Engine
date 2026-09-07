@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "rival-search-mcp-skills",
+  "version": "1.0.0",
+  "description": "Agent skill and CLI helpers for using RivalSearchMCP research tools from Claude Code. Includes workflows, command references, and a standalone CLI for the hosted MCP server.",
+  "author": {
+    "name": "Damion Rashford",
+    "url": "https://github.com/damionrashford"
+  },
+  "homepage": "https://github.com/damionrashford/RivalSearchMCP",
+  "repository": "https://github.com/damionrashford/RivalSearchMCP",
+  "license": "MIT",
+  "keywords": [
+    "search",
+    "research",
+    "skills",
+    "cli",
+    "mcp",
+    "codex",
+    "claude-code"
+  ],
+  "skills": "./skills/"
+}

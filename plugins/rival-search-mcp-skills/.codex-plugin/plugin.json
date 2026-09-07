@@ -1,0 +1,39 @@
+{
+  "name": "rival-search-mcp-skills",
+  "version": "1.0.0",
+  "description": "Agent skill and CLI helpers for using RivalSearchMCP research tools from Codex. Includes workflows, command references, and a standalone CLI for the hosted MCP server.",
+  "author": {
+    "name": "Damion Rashford",
+    "url": "https://github.com/damionrashford"
+  },
+  "homepage": "https://github.com/damionrashford/RivalSearchMCP",
+  "repository": "https://github.com/damionrashford/RivalSearchMCP",
+  "license": "MIT",
+  "keywords": [
+    "search",
+    "research",
+    "skills",
+    "cli",
+    "mcp",
+    "codex",
+    "claude-code"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "RivalSearch MCP Skills",
+    "shortDescription": "Agent workflows and CLI helpers",
+    "longDescription": "Agent skill package for RivalSearchMCP. Provides research workflows, tool references, and a self-contained CLI for using the hosted RivalSearchMCP server without manual MCP setup.",
+    "developerName": "Damion Rashford",
+    "category": "Productivity",
+    "capabilities": ["Read"],
+    "websiteURL": "https://github.com/damionrashford/RivalSearchMCP",
+    "privacyPolicyURL": "https://github.com/damionrashford/RivalSearchMCP",
+    "termsOfServiceURL": "https://github.com/damionrashford/RivalSearchMCP/blob/main/LICENSE",
+    "defaultPrompt": [
+      "Use the RivalSearch skill to research a topic.",
+      "Show RivalSearch CLI examples for web research.",
+      "Use RivalSearch to compare sources."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RivalSearchMCP · Browser Client</title>
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --panel: #151920;
+      --panel-2: #1d222b;
+      --border: #262d38;
+      --text: #e6e8ec;
+      --muted: #8b94a3;
+      --accent: #7dd3fc;
+      --accent-2: #a78bfa;
+      --ok: #86efac;
+      --err: #fca5a5;
+      --warn: #fbbf24;
+      --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px; line-height: 1.5;
+    }
+    header {
+      padding: 14px 20px; border-bottom: 1px solid var(--border);
+      display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+      background: var(--panel);
+    }
+    header h1 { font-size: 15px; margin: 0; font-weight: 600; }
+    header .status { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+    header .status.ok { color: var(--ok); }
+    header .status.err { color: var(--err); }
+    main {
+      display: grid; grid-template-columns: 360px 1fr; gap: 0;
+      height: calc(100vh - 52px);
+    }
+    aside { border-right: 1px solid var(--border); overflow: auto; background: var(--panel); }
+    section { overflow: auto; padding: 18px 22px; }
+    .group { padding: 14px 18px; border-bottom: 1px solid var(--border); }
+    .group h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 10px; font-weight: 600; }
+    label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    input[type="text"], input[type="number"], textarea, select {
+      width: 100%; background: var(--panel-2); color: var(--text); border: 1px solid var(--border);
+      border-radius: 6px; padding: 7px 9px; font-family: var(--mono); font-size: 12.5px;
+    }
+    textarea { resize: vertical; min-height: 64px; }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
+    button {
+      background: var(--accent); color: #0b0d10; border: 0; border-radius: 6px;
+      padding: 7px 14px; font-weight: 600; cursor: pointer; font-size: 13px;
+    }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    button.secondary { background: var(--panel-2); color: var(--text); border: 1px solid var(--border); }
+    .row { display: flex; gap: 8px; }
+    .row > * { flex: 1; }
+    .tool-btn {
+      display: block; width: 100%; text-align: left; background: transparent;
+      color: var(--text); border: 1px solid transparent; border-radius: 6px;
+      padding: 8px 10px; font-family: var(--mono); font-size: 12.5px; cursor: pointer;
+      margin-bottom: 2px;
+    }
+    .tool-btn:hover { background: var(--panel-2); }
+    .tool-btn.active { background: var(--panel-2); border-color: var(--accent); }
+    .tool-btn .desc { color: var(--muted); font-family: -apple-system, sans-serif; font-size: 11.5px; margin-top: 2px; white-space: normal; }
+    .badge { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: 10.5px; background: var(--panel-2); color: var(--muted); border: 1px solid var(--border); font-family: var(--mono); }
+    .field { margin-bottom: 12px; }
+    .field .hint { color: var(--muted); font-size: 11.5px; margin-top: 3px; font-family: var(--mono); }
+    .result {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+      padding: 14px 16px; margin-top: 14px; font-family: var(--mono); font-size: 12.5px;
+      white-space: pre-wrap; word-wrap: break-word; max-width: 100%;
+    }
+    .result.err { border-color: var(--err); color: var(--err); }
+    .tabs { display: flex; gap: 2px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .tab { padding: 6px 12px; cursor: pointer; font-size: 12px; color: var(--muted); border-bottom: 2px solid transparent; }
+    .tab.active { color: var(--text); border-bottom-color: var(--accent); }
+    .kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-family: var(--mono); font-size: 12px; }
+    .kv .k { color: var(--muted); }
+    a { color: var(--accent); }
+    details summary { cursor: pointer; color: var(--muted); font-size: 12px; user-select: none; }
+    details[open] summary { margin-bottom: 8px; }
+    pre { margin: 0; font-family: var(--mono); font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>RivalSearchMCP · Browser Client</h1>
+  <span id="status" class="status">disconnected</span>
+</header>
+
+<main>
+  <aside>
+    <div class="group">
+      <h2>Connection</h2>
+      <div class="field">
+        <label for="url">Server URL</label>
+        <input id="url" type="text" value="https://RivalSearchMCP.fastmcp.app/mcp" />
+      </div>
+      <div class="row">
+        <button id="connect">Connect</button>
+        <button id="disconnect" class="secondary" disabled>Disconnect</button>
+      </div>
+      <div class="kv" style="margin-top: 10px;">
+        <span class="k">session</span><span id="sessionId" class="badge">—</span>
+        <span class="k">tools</span><span id="toolCount" class="badge">—</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <h2>Tools</h2>
+      <div id="toolList" style="font-size:12px;color:var(--muted)">Not connected.</div>
+    </div>
+  </aside>
+
+  <section>
+    <div id="toolPane">
+      <div style="color: var(--muted); font-size: 13px;">
+        Connect to a FastMCP Streamable HTTP endpoint, pick a tool on the left, fill its inputs, and call it. Result renders below.
+        <br /><br />
+        <strong>CORS note:</strong> the hosted RivalSearchMCP server must send
+        <code>Access-Control-Allow-Origin</code> that permits this page's origin, and
+        <code>Access-Control-Expose-Headers: Mcp-Session-Id</code>. If you open this file via <code>file://</code> and get a CORS block,
+        serve it locally instead: <code>uv run python -m http.server 8765 --directory tests</code> then open
+        <code>http://127.0.0.1:8765/browser_client.html</code>.
+      </div>
+    </div>
+  </section>
+</main>
+
+<script type="importmap">
+{
+  "imports": {
+    "zod": "https://esm.sh/zod@3.25.76?target=es2022",
+    "zod/v3": "https://esm.sh/zod@3.25.76?target=es2022",
+    "zod/v4": "https://esm.sh/zod@3.25.76/v4?target=es2022",
+    "zod/v4/core": "https://esm.sh/zod@3.25.76/v4/core?target=es2022"
+  }
+}
+</script>
+<script type="module">
+import { Client } from "https://esm.sh/@modelcontextprotocol/sdk@1.29.0/client/index.js?external=zod&target=es2022";
+import { StreamableHTTPClientTransport } from "https://esm.sh/@modelcontextprotocol/sdk@1.29.0/client/streamableHttp.js?external=zod&target=es2022";
+
+const $ = (id) => document.getElementById(id);
+const statusEl = $("status");
+const urlEl = $("url");
+const connectBtn = $("connect");
+const disconnectBtn = $("disconnect");
+const sessionIdEl = $("sessionId");
+const toolCountEl = $("toolCount");
+const toolListEl = $("toolList");
+const toolPaneEl = $("toolPane");
+
+let client = null;
+let transport = null;
+let tools = [];
+let activeTool = null;
+
+function setStatus(text, cls = "") {
+  statusEl.textContent = text;
+  statusEl.className = "status " + cls;
+}
+
+connectBtn.addEventListener("click", connect);
+disconnectBtn.addEventListener("click", disconnect);
+
+async function connect() {
+  connectBtn.disabled = true;
+  setStatus("connecting…");
+  try {
+    client = new Client({ name: "rivalsearch-browser", version: "1.0.0" });
+    client.onerror = (err) => console.error("[mcp client error]", err);
+    transport = new StreamableHTTPClientTransport(new URL(urlEl.value.trim()));
+    await client.connect(transport);
+    setStatus("connected", "ok");
+    sessionIdEl.textContent = transport.sessionId ? transport.sessionId.slice(0, 10) + "…" : "(none)";
+    disconnectBtn.disabled = false;
+
+    const resp = await client.request({ method: "tools/list", params: {} }, undefined);
+    tools = resp.tools || [];
+    toolCountEl.textContent = String(tools.length);
+    renderToolList();
+  } catch (err) {
+    setStatus("error", "err");
+    toolListEl.innerHTML = `<div style="color:var(--err)">${escapeHtml(String(err))}</div>`;
+    console.error(err);
+    connectBtn.disabled = false;
+  }
+}
+
+async function disconnect() {
+  try { await transport?.close(); } catch {}
+  client = null; transport = null; tools = []; activeTool = null;
+  setStatus("disconnected");
+  sessionIdEl.textContent = "—";
+  toolCountEl.textContent = "—";
+  toolListEl.textContent = "Not connected.";
+  toolPaneEl.innerHTML = "";
+  connectBtn.disabled = false;
+  disconnectBtn.disabled = true;
+}
+
+function renderToolList() {
+  toolListEl.innerHTML = "";
+  if (!tools.length) {
+    toolListEl.textContent = "(no tools)";
+    return;
+  }
+  for (const t of tools) {
+    const btn = document.createElement("button");
+    btn.className = "tool-btn";
+    btn.innerHTML = `<div><strong>${escapeHtml(t.name)}</strong></div>` +
+      (t.description ? `<div class="desc">${escapeHtml(t.description.split("\n")[0])}</div>` : "");
+    btn.addEventListener("click", () => selectTool(t, btn));
+    toolListEl.appendChild(btn);
+  }
+}
+
+function selectTool(t, btn) {
+  activeTool = t;
+  document.querySelectorAll(".tool-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderToolForm(t);
+}
+
+function renderToolForm(t) {
+  const schema = t.inputSchema || { type: "object", properties: {} };
+  const props = schema.properties || {};
+  const required = new Set(schema.required || []);
+
+  const form = document.createElement("form");
+  form.innerHTML = `<h2 style="margin:0 0 4px;font-size:16px;">${escapeHtml(t.name)}</h2>
+    <div style="color:var(--muted);font-size:12.5px;margin-bottom:14px;white-space:pre-wrap;">${escapeHtml(t.description || "")}</div>`;
+
+  for (const [key, schemaProp] of Object.entries(props)) {
+    const field = document.createElement("div");
+    field.className = "field";
+
+    const label = document.createElement("label");
+    const req = required.has(key) ? ' <span style="color:var(--warn)">*</span>' : '';
+    label.innerHTML = escapeHtml(key) + req + ` <span class="badge">${escapeHtml(typeLabel(schemaProp))}</span>`;
+    field.appendChild(label);
+
+    const input = buildInput(key, schemaProp);
+    input.name = key;
+    input.dataset.schema = JSON.stringify(schemaProp);
+    field.appendChild(input);
+
+    if (schemaProp.description) {
+      const hint = document.createElement("div");
+      hint.className = "hint";
+      hint.textContent = schemaProp.description;
+      field.appendChild(hint);
+    }
+    form.appendChild(field);
+  }
+
+  const submit = document.createElement("button");
+  submit.type = "submit";
+  submit.textContent = "Call tool";
+  form.appendChild(submit);
+
+  const schemaDetails = document.createElement("details");
+  schemaDetails.style.marginTop = "14px";
+  schemaDetails.innerHTML = `<summary>inputSchema</summary><pre>${escapeHtml(JSON.stringify(schema, null, 2))}</pre>`;
+  form.appendChild(schemaDetails);
+
+  const resultBox = document.createElement("div");
+  resultBox.id = "result";
+
+  form.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    submit.disabled = true;
+    resultBox.className = "result";
+    resultBox.textContent = "Calling…";
+
+    const args = {};
+    for (const el of form.querySelectorAll("[name]")) {
+      const sch = JSON.parse(el.dataset.schema);
+      const val = readValue(el, sch);
+      if (val !== undefined) args[el.name] = val;
+    }
+
+    const started = performance.now();
+    try {
+      const result = await client.callTool({ name: t.name, arguments: args });
+      const elapsed = (performance.now() - started).toFixed(0);
+      renderResult(resultBox, result, elapsed, args);
+    } catch (err) {
+      resultBox.className = "result err";
+      resultBox.textContent = String(err?.stack || err);
+    } finally {
+      submit.disabled = false;
+    }
+  });
+
+  toolPaneEl.innerHTML = "";
+  toolPaneEl.appendChild(form);
+  toolPaneEl.appendChild(resultBox);
+}
+
+function buildInput(key, sch) {
+  const t = Array.isArray(sch.type) ? sch.type[0] : sch.type;
+  if (sch.enum) {
+    const sel = document.createElement("select");
+    for (const v of sch.enum) {
+      const opt = document.createElement("option");
+      opt.value = String(v); opt.textContent = String(v);
+      sel.appendChild(opt);
+    }
+    if (sch.default !== undefined) sel.value = String(sch.default);
+    return sel;
+  }
+  if (t === "boolean") {
+    const sel = document.createElement("select");
+    sel.innerHTML = `<option value="">(unset)</option><option value="true">true</option><option value="false">false</option>`;
+    if (sch.default !== undefined) sel.value = String(sch.default);
+    return sel;
+  }
+  if (t === "number" || t === "integer") {
+    const i = document.createElement("input");
+    i.type = "number";
+    if (sch.default !== undefined) i.value = sch.default;
+    return i;
+  }
+  if (t === "array" || t === "object") {
+    const ta = document.createElement("textarea");
+    ta.placeholder = t === "array" ? '["item", ...]' : '{"key": "value"}';
+    if (sch.default !== undefined) ta.value = JSON.stringify(sch.default);
+    return ta;
+  }
+  // default: string
+  const useTextarea = sch.description && sch.description.length > 80;
+  const i = useTextarea ? document.createElement("textarea") : document.createElement("input");
+  if (!useTextarea) i.type = "text";
+  if (sch.default !== undefined) i.value = sch.default;
+  return i;
+}
+
+function readValue(el, sch) {
+  const t = Array.isArray(sch.type) ? sch.type[0] : sch.type;
+  const raw = el.value;
+  if (raw === "" || raw == null) {
+    return sch.default !== undefined ? sch.default : undefined;
+  }
+  if (t === "boolean") return raw === "true";
+  if (t === "number") return Number(raw);
+  if (t === "integer") return parseInt(raw, 10);
+  if (t === "array" || t === "object") {
+    try { return JSON.parse(raw); }
+    catch { return raw; }
+  }
+  return raw;
+}
+
+function typeLabel(sch) {
+  if (sch.enum) return "enum";
+  if (Array.isArray(sch.type)) return sch.type.join("|");
+  return sch.type || "any";
+}
+
+function renderResult(box, result, elapsed, args) {
+  box.className = "result";
+  const meta = `◈ ${elapsed}ms · args: ${JSON.stringify(args)}`;
+  const chunks = [meta, ""];
+  if (result.isError) box.className = "result err";
+  for (const item of (result.content || [])) {
+    switch (item.type) {
+      case "text":
+        chunks.push(item.text ?? "");
+        break;
+      case "resource_link":
+        chunks.push(`📁 ${item.name || ""}  ${item.uri}${item.mimeType ? ` (${item.mimeType})` : ""}`);
+        break;
+      case "image":
+        chunks.push(`[image: ${item.mimeType}]`);
+        break;
+      case "audio":
+        chunks.push(`[audio: ${item.mimeType}]`);
+        break;
+      case "resource":
+        chunks.push(`[resource: ${item.resource?.uri}]`);
+        break;
+      default:
+        chunks.push(JSON.stringify(item, null, 2));
+    }
+  }
+  if (result.structuredContent) {
+    chunks.push("", "── structuredContent ──", JSON.stringify(result.structuredContent, null, 2));
+  }
+  box.textContent = chunks.join("\n");
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+</script>
+
+</body>
+</html>

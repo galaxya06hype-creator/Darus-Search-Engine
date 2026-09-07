@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RivalSearchMCP — Repository Stats</title>
+  <meta name="description" content="Daily snapshots of public GitHub repository activity for damionrashford/RivalSearchMCP. No visitor tracking. No MCP usage tracking." />
+  <meta name="referrer" content="no-referrer" />
+  <link rel="canonical" href="https://damionrashford.github.io/RivalSearchMCP/" />
+  <style>
+    :root {
+      --bg: #fafaf7;
+      --panel: #ffffff;
+      --border: #ececec;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --accent: #4a3aff;
+      --accent-soft: #eeeaff;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+    header { margin-bottom: 40px; }
+    .eyebrow { color: var(--muted); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+    h1 { margin: 0 0 16px; font-size: 32px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
+    h2 { margin: 0 0 12px; font-size: 17px; font-weight: 600; }
+    p { margin: 0 0 14px; }
+    .lede { color: var(--muted); font-size: 17px; max-width: 60ch; }
+    .cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: var(--accent); color: white; border-radius: 8px; font-weight: 500; font-size: 14px; }
+    .cta:hover { text-decoration: none; opacity: 0.92; }
+    .meta { display: inline-block; margin-left: 12px; color: var(--muted); font-size: 13px; }
+    .section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin-bottom: 16px; }
+    ul.bare { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    ul.bare li { padding-left: 18px; position: relative; color: var(--text); }
+    ul.bare li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    code { background: var(--accent-soft); color: var(--accent); border-radius: 4px; padding: 1px 6px; font-size: 0.9em; }
+    .note { background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; font-size: 14.5px; color: var(--text); }
+    .note strong { color: var(--accent); }
+    footer { margin-top: 56px; color: var(--muted); font-size: 13px; }
+    hr.soft { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">Rival Ventures · RivalSearchMCP</div>
+      <h1>Repository Stats</h1>
+      <p class="lede">Daily snapshots of public GitHub repository activity for <a href="https://github.com/damionrashford/RivalSearchMCP">damionrashford/RivalSearchMCP</a> — captured automatically each day and stored in git.</p>
+    </header>
+
+    <p style="margin: 0 0 32px;">
+      <a class="cta" href="https://damionrashford.github.io/RivalSearchMCP/" rel="noopener">View the full report &nbsp;→</a>
+      <span class="meta">Updated daily · 23:00 UTC</span>
+    </p>
+
+    <div class="note">
+      <strong>What this is not.</strong> This page does not track visitors — no analytics, no cookies, no third-party scripts or images. It also does not observe MCP server usage in any way. The only data collected is the public, repository-level activity that GitHub itself records on its own Traffic API (views, clones, referrers, stars, forks).
+    </div>
+
+    <section class="section">
+      <h2>What gets captured</h2>
+      <ul class="bare">
+        <li>Unique and total views per day</li>
+        <li>Unique and total clones per day</li>
+        <li>Top referrers — where landings come from</li>
+        <li>Top paths — which files inside the repo are viewed</li>
+        <li>Stargazer and fork counts over time</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Where the data lives</h2>
+      <p>The action <a href="https://github.com/jgehrcke/github-repo-stats">jgehrcke/github-repo-stats</a> runs daily and commits raw CSVs plus a generated HTML and PDF report to the <code>github-repo-stats</code> branch of this repository. No external database, no cloud storage — just git history.</p>
+      <ul class="bare">
+        <li><a href="https://github.com/damionrashford/RivalSearchMCP/tree/github-repo-stats">github-repo-stats branch (raw data + reports)</a></li>
+        <li><a href="https://github.com/damionrashford/RivalSearchMCP/actions/workflows/github-repo-stats.yml">Workflow runs</a></li>
+      </ul>
+    </section>
+
+    <hr class="soft" />
+
+    <footer>
+      Part of <a href="https://github.com/damionrashford/RivalSearchMCP">RivalSearchMCP</a> · powered by
+      <a href="https://github.com/jgehrcke/github-repo-stats">github-repo-stats</a>.
+    </footer>
+  </div>
+</body>
+</html>

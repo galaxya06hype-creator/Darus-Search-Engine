@@ -1,0 +1,9 @@
+{
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.13",
+  "include": ["rival_search_mcp", "tests"],
+  "exclude": ["**/__pycache__"],
+  "reportMissingImports": "warning",
+  "reportMissingModuleSource": "none"
+}

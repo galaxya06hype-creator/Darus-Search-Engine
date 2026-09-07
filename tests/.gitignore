@@ -1,0 +1,15 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Test outputs
+*.csv
+*.json
+*.db
+test_trends*
+
+# IDE
+.vscode/
+.idea/

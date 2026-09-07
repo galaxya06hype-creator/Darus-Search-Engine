@@ -1,0 +1,24 @@
+{
+  "name": "rivalsearchmcp",
+  "description": "Multi-engine research tools for Claude Code — web, social, news, academic, GitHub, and document processing. No API keys.",
+  "owner": {
+    "name": "Damion Rashford",
+    "url": "https://github.com/damionrashford"
+  },
+  "plugins": [
+    {
+      "name": "rival-search-mcp",
+      "description": "9 research tools: 5-engine web search, 9 social platforms, 5 news sources, 5 academic databases, GitHub, website mapping, document analysis, and research topic synthesis. No API keys required.",
+      "source": "./plugins/rival-search-mcp",
+      "category": "search",
+      "tags": ["research", "mcp", "no-auth"]
+    },
+    {
+      "name": "rival-search-mcp-skills",
+      "description": "Agent skill and CLI helpers for RivalSearchMCP research workflows. Install separately from the MCP server plugin.",
+      "source": "./plugins/rival-search-mcp-skills",
+      "category": "search",
+      "tags": ["research", "skills", "cli"]
+    }
+  ]
+}

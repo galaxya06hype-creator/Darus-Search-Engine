@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "rival-search-mcp",
+  "version": "1.0.0",
+  "description": "9 research tools: 5-engine web search, 9 social platforms, 5 news sources, 5 academic databases, GitHub, website mapping, document analysis, and research topic synthesis. No API keys required. Deterministic outputs for agent chaining.",
+  "author": {
+    "name": "Damion Rashford",
+    "url": "https://github.com/damionrashford"
+  },
+  "homepage": "https://github.com/damionrashford/RivalSearchMCP",
+  "repository": "https://github.com/damionrashford/RivalSearchMCP",
+  "license": "MIT",
+  "keywords": [
+    "search",
+    "research",
+    "web",
+    "social",
+    "academic",
+    "mcp",
+    "no-auth",
+    "news",
+    "github",
+    "arxiv",
+    "reddit"
+  ],
+  "mcpServers": {
+    "RivalSearchMCP": {
+      "type": "http",
+      "url": "https://RivalSearchMCP.fastmcp.app/mcp"
+    }
+  }
+}

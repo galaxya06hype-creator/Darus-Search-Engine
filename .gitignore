@@ -1,0 +1,171 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+build/
+dist/
+.Python
+
+# MkDocs build output
+site/
+
+# Docs folder exclusions
+docs/.DS_Store
+docs/Thumbs.db
+docs/*.log
+docs/temp/
+docs/drafts/
+docs/_*
+docs/.env*
+docs/secrets/
+docs/private/
+docs/internal/
+docs/admin/
+docs/backup/
+docs/archive/
+
+# Hidden docs directory
+.docs/
+
+# Virtual environments
+.venv/
+.venv-py313/
+venv/
+env/
+ENV/
+.env
+*.env
+.env.local
+.env.*.local
+
+# Data and logs
+*.log
+*.db
+*.sqlite3
+data_store.json
+data/
+logs/
+
+# MCP specific
+mcp_server.log
+mcp_*.log
+
+# IDE and editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
+*.bak
+*.backup
+
+# Claude AI files - ignore entire .claude folder
+.claude/
+.opencode/
+opencode.json
+.claude.json
+.claude.json.backup
+
+# MCP client configuration (contains sensitive tokens)
+.mcp.json
+mcp.json
+# Exception: repo-root .mcp.json is the Codex plugin MCP config, not a user secret
+!/.mcp.json
+
+# Rival Search plugin (lives in its own repo: damionrashford/rival-search)
+rival-search/
+
+# Keep agent system in git (agents, commands, skills, hooks, docs)
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+tests/comprehensive_test_report_*.json
+tests/*_test_report_*.json
+
+# Temporary files
+*.tmp
+*.temp
+*~
+*.orig
+
+# Secrets and credentials
+*.key
+*.pem
+*.crt
+credentials.json
+secrets.json
+config.local.json
+.env.local
+.env.production
+.env.staging
+
+# Node modules (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Ruff cache
+.ruff_cache/
+
+# Distribution / packaging
+.Python
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# GitHub Pages deployment
+.github/actions/
+.github/workflows/*.log
+
+# Additional docs exclusions
+docs/**/.*
+docs/**/*.tmp
+docs/**/*.temp
+docs/**/*.bak
+docs/**/*.backup
+docs/**/node_modules/
+docs/**/package-lock.json
+docs/**/yarn.lock
