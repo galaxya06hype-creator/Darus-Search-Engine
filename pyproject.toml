@@ -17,7 +17,7 @@ dependencies = [
     "pandas>=2.2.0",
     "urllib3<2.0.0",
     "python-dotenv>=1.0.0",
-    "fastmcp>=3.2.0,<4",
+    "fastmcp>=3.4.7,<4",
     "markdown>=3.5.0",
     "feedparser>=6.0.12",
     "pypdf>=6.6.0",
@@ -80,8 +80,5 @@ python_functions = ["test_*"]
 asyncio_mode = "auto"
 
 [tool.bandit]
-# `assert` is idiomatic in pytest; skip B101 in tests. Tests also exercise
-# request-shaping paths (hardcoded fixtures, localhost binds) that trip low-
-# severity rules with no real security impact.
 exclude_dirs = ["tests", ".venv", "venv"]
 skips = ["B101"]
