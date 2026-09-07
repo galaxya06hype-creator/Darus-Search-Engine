@@ -17,24 +17,13 @@ dependencies = [
     "pandas>=2.2.0",
     "urllib3<2.0.0",
     "python-dotenv>=1.0.0",
-    "fastmcp>=3.4.7,<4",
+    "fastmcp==3.2.4",
     "markdown>=3.5.0",
     "feedparser>=6.0.12",
     "pypdf>=6.6.0",
     "python-docx>=1.2.0",
     "easyocr>=1.7.2",
-    # Scrapling provides a browser-TLS-impersonating HTTP client (Fetcher /
-    # AsyncFetcher) plus adaptive CSS selectors. Used by the search engines
-    # to slip past Cloudflare/Akamai TLS fingerprinting on Bing, DuckDuckGo,
-    # and Yahoo -- and by the Bing News RSS source -- without shelling out
-    # to `curl` or running a headless browser. The `fetchers` extra pulls in
-    # just the HTTP stack (playwright types are imported but not executed).
     "scrapling[fetchers]>=0.3.0",
-    # markdownify converts fetched HTML to clean markdown. Used by the
-    # shared Scrapling client (rival_search_mcp/utils/scrapling_client.py). ~30KB pure
-    # Python -- more reliable than our previous custom BeautifulSoup
-    # converter which silently returned empty output on some modern sites
-    # (Wikipedia article pages, for example).
     "markdownify>=0.11",
     "psutil>=5.9.0",
 ]
@@ -47,9 +36,6 @@ dev = [
     "black>=23.7.0",
     "isort>=5.12.0",
     "ruff>=0.0.285",
-    # CI's `uv run pre-commit` needs the binary on PATH via the project's
-    # venv. Without it declared here, the hook step fails with
-    # "Failed to spawn: pre-commit, No such file or directory".
     "pre-commit>=3.5.0",
 ]
 
