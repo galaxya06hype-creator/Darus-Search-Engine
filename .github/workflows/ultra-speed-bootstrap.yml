@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   bootstrap:
-    if: ${{ !contains(github.event.head_commit.message, 'ci: bootstrap upstream') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -18,32 +17,46 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Stop after generated source exists
+        id: guard
+        run: |
+          if [ -f .darus_ultra_bootstrapped ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Import upstream source
+        if: steps.guard.outputs.skip == 'false'
         run: |
           rm -rf /tmp/upstream
           git clone --depth 1 https://github.com/damionrashford/RivalSearchMCP.git /tmp/upstream
-          rsync -a /tmp/upstream/ ./ \
-            --exclude '.git' \
-            --exclude 'README.md' \
-            --exclude '.github/workflows/ultra-speed-bootstrap.yml' \
-            --exclude 'scripts/ultra_speed_patch.py'
+          rsync -a \
+            --exclude='.git' \
+            --exclude='README.md' \
+            --exclude='.github/workflows/ultra-speed-bootstrap.yml' \
+            --exclude='scripts/ultra_speed_patch.py' \
+            /tmp/upstream/ ./
 
       - name: Apply Ultra Speed optimizations
+        if: steps.guard.outputs.skip == 'false'
         run: python3 scripts/ultra_speed_patch.py
 
-      - name: Remove transient build files
-        run: |
-          find . -type d -name __pycache__ -prune -exec rm -rf {} +
-          rm -rf .pytest_cache logs
-
       - name: Validate Python syntax
+        if: steps.guard.outputs.skip == 'false'
         run: python3 -m compileall -q rival_search_mcp server.py
 
-      - name: Commit generated source
+      - name: Finalize marker and commit
+        if: steps.guard.outputs.skip == 'false'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          printf '%s\n' 'Generated from damionrashford/RivalSearchMCP with reproducible Ultra Speed optimizations.' > .darus_ultra_bootstrapped
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           git status --short
-          git commit -m "ci: bootstrap upstream" || echo "No changes to commit"
+          if git diff --cached --quiet; then
+            echo 'No changes to commit'
+            exit 0
+          fi
+          git commit -m 'ci: bootstrap upstream'
           git push origin HEAD:main
