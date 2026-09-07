@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Stop after generated source exists
+      - name: Check bootstrap state
         id: guard
         run: |
           if [ -f .darus_ultra_bootstrapped ]; then
@@ -34,7 +34,7 @@ jobs:
           rsync -a \
             --exclude='.git' \
             --exclude='README.md' \
-            --exclude='.github/workflows/ultra-speed-bootstrap.yml' \
+            --exclude='.github/workflows/***' \
             --exclude='scripts/ultra_speed_patch.py' \
             /tmp/upstream/ ./
 
@@ -53,7 +53,8 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git status --short
+          git rm -r --ignore-unmatch .github/workflows/auto-assign.yml .github/workflows/ci.yml .github/workflows/claude-code-review.yml .github/workflows/claude-issue-triage.yml .github/workflows/claude.yml .github/workflows/github-repo-stats.yml .github/workflows/labeler.yml .github/workflows/labels-sync.yml || true
+          git add -A
           if git diff --cached --quiet; then
             echo 'No changes to commit'
             exit 0
