@@ -1,0 +1,1 @@
+Temporary trigger file for the initial source bootstrap. It may be removed by the bootstrap workflow after the generated source is committed.
