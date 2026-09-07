@@ -14,8 +14,6 @@ from rival_search_mcp.tools.multi_search import web_search
 def register_search_tools(mcp: FastMCP):
     """Register all search-related tools."""
 
-    # No Google search tool - removed as requested
-
     @mcp.tool(
         name="web_search",
         description=(
@@ -24,13 +22,7 @@ def register_search_tools(mcp: FastMCP):
             "merged; failures on any single engine do not block the others."
         ),
         tags={
-            "search",
-            "web",
-            "duckduckgo",
-            "bing",
-            "yahoo",
-            "mojeek",
-            "wikipedia",
+            "search", "web", "duckduckgo", "bing", "yahoo", "mojeek", "wikipedia"
         },
         meta={
             "version": "2.0",
@@ -44,8 +36,6 @@ def register_search_tools(mcp: FastMCP):
             "destructiveHint": False,
             "idempotentHint": False,
         },
-        # 5 engines concurrent + optional per-result content fetch.
-        timeout=90.0,
     )
     async def web_search_tool(
         ctx: Context,
@@ -53,25 +43,19 @@ def register_search_tools(mcp: FastMCP):
             str, Field(description="Search query string", min_length=2, max_length=500)
         ],
         num_results: Annotated[
-            int,
-            Field(description="Number of results per engine", ge=1, le=20, default=10),
+            int, Field(description="Number of results per engine", ge=1, le=20, default=10)
         ] = 10,
         extract_content: Annotated[
-            bool,
-            Field(description="Whether to extract full page content", default=True),
-        ] = True,
+            bool, Field(description="Whether to extract full page content", default=False)
+        ] = False,
         follow_links: Annotated[
-            bool, Field(description="Whether to follow internal links", default=True)
-        ] = True,
+            bool, Field(description="Whether to follow internal links", default=False)
+        ] = False,
         max_depth: Annotated[
-            int,
-            Field(description="Maximum depth for link following", ge=1, le=3, default=2),
+            int, Field(description="Maximum depth for link following", ge=1, le=3, default=2)
         ] = 2,
     ) -> str:
-        """
-        Multi-engine search across DuckDuckGo, Bing, Yahoo, Mojeek, and Wikipedia
-        with input sanitization and rate-limit protection.
-        """
+        """Fast multi-engine search. Content extraction/following is opt-in."""
         from rival_search_mcp.core.security.security import InputValidator
 
         validator = InputValidator()
